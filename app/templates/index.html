@@ -2,7 +2,8 @@
 {% block css%} <link rel="stylesheet" type="text/css" href="/static/app/index.css" />{%endblock%}
 
 {% block content %}
+<div style='text-align: center;'>
   <a href="{% url 'upload_files' %}">Upload Files</a>
   <a href="{% url 'upload_folder' %}">Upload Folder</a>
-
+</div>
 {% endblock %}
