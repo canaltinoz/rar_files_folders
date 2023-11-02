@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
-{% block css%} <link rel="stylesheet" type="text/css" href="/static/app/folder_list.css" />{%endblock%}
+{% block css%} <link rel="stylesheet" type="text/css" href="/static/app/list.css" />{%endblock%}
 
 {% block content %}
-<div style='text-align: center;'>
+<div class='center-div'>
   <h1>Uploaded and Compressed Folders</h1>
-    {% for folder in folders %}
-    <li>==> <a href="{{ folder.compressed_folder.url }}">{{ folder.compressed_folder }}</a></li>
-    {% endfor %}
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Folder Name</th>
+        <th>Download Link</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for folder in folders %}
+        <tr>
+          <td>{{ folder.compressed_folder }}</td>
+          <td><a href="{{ folder.compressed_folder.url }}">Download</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
   <a href="{% url 'index' %}" class="button">INDEX</a>
 </div>
 {% endblock %}
+

@@ -1,16 +1,31 @@
-h1 {
-    font-size: 24px;
-    color: #3498db;
-    margin-bottom: 20px;
-  }
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  li {
-    margin-bottom: 10px;
-  }
-  a {
+.center-div {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Optionally, you can set a fixed width and margin for the div */
+  width: 500px;
+  margin: 0 auto;
+}
+table {
+  border-collapse: collapse;
+  width: 80%; /* Adjust the width as needed */
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+a {
     text-decoration: none;
     color: #3498db;
   }
@@ -42,3 +57,4 @@ h1 {
   a.button:hover {
     background-color: #000000;
   }
+
