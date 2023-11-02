@@ -4,9 +4,9 @@
   <h1>Uploaded and Compressed Files</h1>
   <ul>
     {% for file in files %}
-      <li><a href="{{ file.compressed_file.name }}">{{ file.uploaded_file.name }}</a></li>
+      <li><a href="{{ file.compressed_file.url }}">{{ file.compressed_file }}</a></li>
     {% endfor %}
   </ul>
 
-  <a href="{% url 'upload_and_compress' %}">Upload</a>
+  <a href="{% url 'upload_files' %}">Upload</a>
 {% endblock %}

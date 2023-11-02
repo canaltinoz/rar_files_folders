@@ -1,37 +1,42 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import *
 from .models import CompressedFile
-import zipfile,subprocess,rarfile,patoolib,shutil,tempfile
+import zipfile,subprocess,rarfile,patoolib,shutil,tempfile,pyzipper
 import os
 
 def index(request):
     return render(request,'index.html')
 
-################### FOR FILE #################################################
-def compress_file(file_path, compressed_path, password):
-    patoolib.create_archive(compressed_path, (file_path,), password=password)
-
-def upload_and_compress(request):
+##################################################################################
+def upload_files(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            instance = form.save()
-            password = form.cleaned_data['password']
+        uploaded_files = request.FILES.getlist('posts')
+        password = request.POST.get('password')  # Get the password from the form
+        temp_dir = tempfile.mkdtemp()
+        try:
+            compressed_file = CompressedFile()
+            for uploaded_file in uploaded_files:
+                file_path = os.path.join(temp_dir, uploaded_file.name)
+                with open(file_path, 'wb') as destination:
+                    for chunk in uploaded_file.chunks():
+                        destination.write(chunk)
 
-            file_name_without_extension, _ = os.path.splitext(os.path.basename(instance.uploaded_file.name))
-            compressed_path = f'compressed/{file_name_without_extension}.zip'
-            file_path = instance.uploaded_file.path
+            zip_file_path = os.path.join(temp_dir, 'compressed_files.zip')
+            patoolib.create_archive(zip_file_path, (temp_dir,), password=password)
+            
+            # Save the uploaded and compressed files to the model
+            compressed_file.compressed_file.save('compressed_files.zip', open(zip_file_path, 'rb'))
+            compressed_file.password = password
+            compressed_file.save()
 
-            compress_file(file_path, compressed_path, password)
-            instance.compressed_file = compressed_path
-            instance.save()
-            return redirect('file_list')
-    else:
-        form = UploadFileForm()
-    return render(request, 'upload_and_compress_file.html', {'form': form})
-
-################### FOR FOLDER #################################################
-
+            with open(zip_file_path, 'rb') as zip_file:
+                response = HttpResponse(zip_file.read(), content_type='application/zip')
+                response['Content-Disposition'] = f'attachment; filename=compressed_files.zip'
+                return redirect(file_list)
+        finally:
+            shutil.rmtree(temp_dir)
+    return render(request, 'upload_files.html')
 ##################################################################################
 
 def file_list(request):
