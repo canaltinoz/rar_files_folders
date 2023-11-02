@@ -1,35 +1,22 @@
-/* file_list.css */
-
-/* Style the page title */
 h1 {
     font-size: 24px;
     color: #3498db;
     margin-bottom: 20px;
   }
-  
-  /* Style the list of files */
   ul {
     list-style: none;
     padding: 0;
   }
-  
-  /* Style each list item (file entry) */
   li {
     margin-bottom: 10px;
   }
-  
-  /* Style the file links */
   a {
     text-decoration: none;
     color: #3498db;
   }
-  
-  /* Add hover effect to file links */
   a:hover {
     color: black;
   }
-  
-  /* Style the "INDEX" link */
   a[href="{% url 'index' %}"] {
     display: inline-block;
     background-color: #3498db;
@@ -39,12 +26,9 @@ h1 {
     border-radius: 5px;
     margin-top: 20px;
   }
-  
-  /* Add hover effect to the "INDEX" link */
   a[href="{% url 'index' %}"]:hover {
     background-color: #2980b9;
   }
-  
   a.button {
     display: inline-block;
     background-color: #3498db;
@@ -53,10 +37,8 @@ h1 {
     text-decoration: none;
     border-radius: 5px;
     margin-top: 20px;
-    transition: background-color 0.3s; /* Add a smooth transition effect */
+    transition: background-color 0.3s;
   }
-  
-  /* Add hover effect to the "INDEX" button */
   a.button:hover {
-    background-color: #2980b9;
+    background-color: #000000;
   }

@@ -4,6 +4,8 @@ from .forms import *
 from .models import CompressedFile
 import zipfile,subprocess,rarfile,patoolib,shutil,tempfile,pyzipper
 import os
+from django.db import transaction
+from django.core.files import File
 
 def index(request):
     return render(request,'index.html')
@@ -15,25 +17,31 @@ def upload_files(request):
         uploaded_files = request.FILES.getlist('posts')
         password = request.POST.get('password')  
         temp_dir = tempfile.mkdtemp()
+
         try:
             compressed_file = CompressedFile()
+            compressed_file.password = password
+            compressed_file.save() 
+
             for uploaded_file in uploaded_files:
                 file_path = os.path.join(temp_dir, uploaded_file.name)
                 with open(file_path, 'wb') as destination:
                     for chunk in uploaded_file.chunks():
                         destination.write(chunk)
-            zip_file_path = os.path.join(temp_dir, 'compressed_files.zip')
-            patoolib.create_archive(zip_file_path, (temp_dir,), password=password)            
-            compressed_file.compressed_file.save('compressed_files.zip', open(zip_file_path, 'rb'))
-            compressed_file.password = password
-            compressed_file.save()
+                
+            zip_file_path = os.path.join(temp_dir, f'compressed_files_{compressed_file.id}.zip')
+            os.chdir(temp_dir)
+            patoolib.create_archive(zip_file_path, ('.',), password=password)
+            os.chdir(os.path.dirname(zip_file_path))
 
             with open(zip_file_path, 'rb') as zip_file:
-                response = HttpResponse(zip_file.read(), content_type='application/zip')
-                response['Content-Disposition'] = f'attachment; filename=compressed_files.zip'
-                return redirect(file_list)
-        finally:
-            shutil.rmtree(temp_dir)
+                compressed_file.compressed_file.save(f'compressed_files_{compressed_file.id}.zip', File(zip_file))
+                compressed_file.save()
+
+            return redirect(file_list)
+        except:
+            return redirect(file_list)
+            
     return render(request, 'upload_files.html')
 ##################################################################################
 
@@ -45,25 +53,28 @@ def upload_folder(request):
 
         try:
             compressed_folder = CompressedFolder()
+            compressed_folder.password = password
+            compressed_folder.save()
+
             for folder in uploaded_folder:
                 file_path = os.path.join(temp_dir, folder.name)
                 with open(file_path, 'wb') as destination:
                     for chunk in folder.chunks():
                         destination.write(chunk)
 
-            zip_file_path = os.path.join(temp_dir, 'compressed_folder.zip')
-            patoolib.create_archive(zip_file_path, (temp_dir,), password=password)            
-            compressed_folder.compressed_folder.save('compressed_folder.zip', open(zip_file_path, 'rb'))
-            compressed_folder.password = password
-            compressed_folder.save()
+            zip_file_path = os.path.join(temp_dir, f'compressed_folder_{compressed_folder.id}.zip')
+            os.chdir(temp_dir)
+            patoolib.create_archive(zip_file_path, ('.',), password=password)
+            os.chdir(os.path.dirname(zip_file_path))
 
-            with open(zip_file_path, 'rb') as zip_file:
-                response = HttpResponse(zip_file.read(), content_type='application/zip')
-                response['Content-Disposition'] = f'attachment; filename=compressed_folder.zip'
-                return redirect(folder_list)
-        finally:
-            shutil.rmtree(temp_dir)
-        
+            with open(zip_file_path, 'rb') as zip_file:   
+                compressed_folder.compressed_folder.save(f'compressed_folder_{compressed_folder.id}.zip', File(zip_file))
+                compressed_folder.save()
+
+            return redirect(folder_list)
+
+        except:
+            return redirect(folder_list)
     return render(request, 'upload_folder.html')
 
 #############################################################################################

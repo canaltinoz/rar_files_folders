@@ -4,6 +4,8 @@
 {% block content %}
 <div style='text-align: center;'>
   <a href="{% url 'upload_files' %}">Upload Files</a>
-  <a href="{% url 'upload_folder' %}">Upload Folder</a>
+  <a href="{% url 'upload_folder' %}">Upload Folder</a><br>
+  <a href="{% url 'file_list' %}">Files</a>
+  <a href="{% url 'folder_list' %}">Folders</a>
 </div>
 {% endblock %}
