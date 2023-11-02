@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload and Compress Folder</title>
+</head>
+<body>
+    <h1>Upload and Compress Folder</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Upload and Compress">
+    </form>
+</body>
+</html>

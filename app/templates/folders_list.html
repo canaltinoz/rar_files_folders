@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Uploaded and Compressed Folders</h1>
+  <ul>
+    {% for file in files %}
+      <li><a href="{{ folders.compressed_file.name }}">{{ folders.uploaded_file.name }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'upload_and_compress_folder' %}">Upload</a>
+{% endblock %}
