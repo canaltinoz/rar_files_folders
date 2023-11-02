@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Upload and Compress Folder</h1>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="folderInput" webkitdirectory directory multiple>
+    <input type="text" name="password" placeholder="Enter Password" required>
+    <button type="submit">Import</button>
+  </form>
+{% endblock %}

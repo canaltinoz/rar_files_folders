@@ -3,8 +3,8 @@
 {% block content %}
   <h1>Uploaded and Compressed Files</h1>
   <ul>
-    {% for file in files %}
-      <li><a href="{{ file.compressed_file.url }}">{{ file.compressed_file }}</a></li>
+    {% for folder in folders %}
+      <li><a href="{{ folder.compressed_folder.url }}">{{ folder.compressed_folder }}</a></li>
     {% endfor %}
   </ul>
 
