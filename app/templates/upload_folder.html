@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
+{% block css%} <link rel="stylesheet" type="text/css" href="/static/app/upload_folder.css" />{%endblock%}
 
 {% block content %}
-  <h1>Upload and Compress Folder</h1>
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="folderInput" webkitdirectory directory multiple>
-    <input type="text" name="password" placeholder="Enter Password" required>
-    <button type="submit">Import</button>
-  </form>
+  <div class="form-container">
+    <h1 class="form-title">Upload and Compress Folder</h1>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" id="folder-input" name="folderInput" webkitdirectory directory multiple>
+      <input type="text" name="password" placeholder="Enter Password" required>
+      <button type="submit">Import</button>
+    </form>
+  </div>
+</div>
+
 {% endblock %}

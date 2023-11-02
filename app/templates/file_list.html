@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% block css%} <link rel="stylesheet" type="text/css" href="/static/app/file_list.css" />{%endblock%}
 
 {% block content %}
   <h1>Uploaded and Compressed Files</h1>
   <ul>
     {% for file in files %}
-      <li><a href="{{ file.compressed_file.url }}">{{ file.compressed_file }}</a></li>
+      <li>==> <a href="{{ file.compressed_file.url }}">{{ file.compressed_file }}</a></li>
     {% endfor %}
   </ul>
 
-  <a href="{% url 'index' %}">INDEX</a>
+  <a href="{% url 'index' %}" class="button">INDEX</a>
 {% endblock %}
