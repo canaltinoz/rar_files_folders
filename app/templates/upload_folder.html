@@ -6,9 +6,9 @@
     <h1 class="form-title">Upload and Compress Folder</h1>
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-      <input type="file" id="folder-input" name="folderInput" webkitdirectory directory multiple>
+      <input type="file" id="folder-input" name="folderInput" webkitdirectory directory multiple required>
       <input type="text" name="password" placeholder="Enter Password" required>
-      <button type="submit">Import</button>
+      <button type="submit">IMPORT</button>
     </form>
     <a href="{% url 'index' %}" class="button">INDEX</a>
 

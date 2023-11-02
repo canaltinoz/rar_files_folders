@@ -1,61 +1,60 @@
 .form-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-  }
-  
-  /* Style the form title */
-  .form-title {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }  
-  
-  /* Style the password input */
-  input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  /* Style the submit button */
-  button[type="submit"] {
-    display: inline-block;
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  /* Add hover effect to the submit button */
-  button[type="submit"]:hover {
-    background-color: #2980b9;
-  }
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
 
-  .form-container{
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+/* Style the form title */
+.form-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}  
 
-  a.button {
-    display: inline-block;
-    background-color: rgb(52, 219, 74);
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 20px;
-    transition: background-color 0.3s;
-  }
-  a.button:hover {
-    background-color: #000000;
-  }
+/* Style the password input */
+input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style the submit button */
+button[type="submit"] {
+  display: inline-block;
+  background-color: #021c2e;
+  color: #fff;
+  padding: 10px 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* Add hover effect to the submit button */
+button[type="submit"]:hover {
+  background-color: #2980b9;
+}
+
+.form-container{
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+a.button {
+  display: inline-block;
+  background-color: rgb(96, 114, 98);
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+a.button:hover {
+  background-color: #000000;
+}
